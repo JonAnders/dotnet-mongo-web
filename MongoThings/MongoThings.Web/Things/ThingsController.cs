@@ -1,22 +1,54 @@
-﻿#region License
-// --------------------------------------------------
-// Copyright © PayEx. All Rights Reserved.
-// 
-// This software is proprietary information of PayEx.
-// USE IS SUBJECT TO LICENSE TERMS.
-// --------------------------------------------------
-#endregion
+﻿using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Mvc;
+
+using MongoDB.Driver;
 
 namespace MongoThings.Web.Things
 {
     public class ThingsController : Controller
     {
-        [Route("/")]
-        public IActionResult Index()
+        private readonly IMongoCollection<Thing> collection;
+
+
+        public ThingsController(IMongoClient mongoClient)
         {
-            return View("Things/Index.cshtml");
+            var database = mongoClient.GetDatabase("mongo-things");
+            this.collection = database.GetCollection<Thing>("things");
+        }
+
+
+        [Route("/")]
+        public async Task<IActionResult> Index()
+        {
+            var allTheThings = await this.collection.Find(x => true).ToListAsync();
+
+            var indexViewModel = new IndexViewModel
+            {
+                Things = allTheThings
+            };
+            return View("Things/Index.cshtml", indexViewModel);
+        }
+
+
+        [Route("/new-thing")]
+        public IActionResult NewThing()
+        {
+            return View("Things/NewThing.cshtml");
+        }
+
+
+        [Route("/new-thing")]
+        [HttpPost]
+        public IActionResult NewThing(NewThingFormModel form)
+        {
+            this.collection.InsertOne(new Thing
+            {
+                Name = form.Name,
+                Description = form.Description
+            });
+
+            return RedirectToAction(nameof(Index));
         }
     }
 }

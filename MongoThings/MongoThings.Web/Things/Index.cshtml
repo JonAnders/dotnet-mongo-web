@@ -1,8 +1,25 @@
-﻿<html xmlns="http://www.w3.org/1999/xhtml">
+﻿@using MongoThings.Web.Things
+@model MongoThings.Web.Things.IndexViewModel
+
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>Things</title>
 </head>
 <body>
-    Yo
+    <a href="@Url.Action(nameof(ThingsController.NewThing))">Add new thing</a>
+@if (Model.Things.Any())
+{
+    <dl>
+        @foreach (var thing in Model.Things)
+        {
+            <dt>@thing.Name</dt>
+            <dd>@thing.Description</dd>
+        }
+    </dl>
+}
+else
+{
+    <p>There are no things in me!</p>
+}
 </body>
 </html>
