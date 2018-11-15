@@ -1,12 +1,11 @@
 ﻿@using MongoThings.Web.Things
 @model MongoThings.Web.Things.IndexViewModel
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <title>Things</title>
-</head>
-<body>
-    <a href="@Url.Action(nameof(ThingsController.NewThing))">Add new thing</a>
+@{
+    Layout = "~/Shared/_Layout.cshtml";
+}
+
+<a href="@Url.Action(nameof(ThingsController.NewThing), "Things")" style="-webkit-appearance: button; text-decoration: none; color: initial; padding: 2px 8px; ">Add new thing</a>
 @if (Model.Things.Any())
 {
     <dl>
@@ -16,10 +15,16 @@
             <dd>@thing.Description</dd>
         }
     </dl>
+
+    <div style="border: 2px dashed #ff5555; padding: 5px; margin-top: 50px; width: fit-content">
+        <h2 style="margin-top: 0px; font-weight: normal; font-size: 20px;">Danger zone!</h2>
+        @using (Html.BeginForm(nameof(ThingsController.DeleteAllTheThings), "Things", FormMethod.Post))
+        {
+            <button type="submit">Delete all the things!</button>
+        }
+    </div>
 }
 else
 {
     <p>There are no things in me!</p>
 }
-</body>
-</html>

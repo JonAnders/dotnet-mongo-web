@@ -1,13 +1,18 @@
-﻿<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <title></title>
-</head>
-<body>
+﻿@{
+    Layout = "~/Shared/_Layout.cshtml";
+}
+
 @using (Html.BeginForm(FormMethod.Post))
 {
-    <input type="text" name="name"/>
-    <textarea name="description"></textarea>
-    <input type="submit" value="Add"/>
+    <div>
+        <div><label for="name">Name</label></div>
+        <div><input type="text" name="name" /></div>
+    </div>
+    <div>
+        <div><label for="description">Description</label></div>
+        <div><textarea cols="80" rows="10" name="description"></textarea></div>
+    </div>
+    <div>
+        <input type="submit" value="Add" />
+    </div>
 }
-</body>
-</html>

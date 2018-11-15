@@ -18,6 +18,16 @@ namespace MongoThings.Web.Things
         }
 
 
+        [Route("/delete")]
+        [HttpPost]
+        public IActionResult DeleteAllTheThings()
+        {
+            this.collection.DeleteMany(x => true);
+
+            return RedirectToAction(nameof(Index));
+        }
+
+
         [Route("/")]
         public async Task<IActionResult> Index()
         {

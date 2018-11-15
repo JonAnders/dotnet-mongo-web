@@ -14,6 +14,8 @@ namespace MongoThings.Web
             if (env.IsDevelopment())
                 app.UseDeveloperExceptionPage();
 
+            app.UseStaticFiles();
+
             app.UseMvc();
         }
 
