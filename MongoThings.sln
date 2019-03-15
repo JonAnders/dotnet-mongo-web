@@ -7,6 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MongoThings.Web", "MongoThi
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C959F56F-E9F7-47E1-9205-8B1922E878EE}"
 	ProjectSection(SolutionItems) = preProject
+		readme.md = readme.md
 		run-local-mongo.bat = run-local-mongo.bat
 	EndProjectSection
 EndProject
